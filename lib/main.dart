@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'widgets/weather_tile.dart';
 
 void main() => runApp(
   MaterialApp(
@@ -45,7 +46,7 @@ class _MyApp extends State<MyApp>{
                     ),
                   ),
                   Text(
-                    "Heigh of temp, low of temp",
+                    "Heigh temp, low temp",
                     style: TextStyle(
                       color: Color(0xff9e9e9e),
                       fontSize: 14.0,
@@ -54,6 +55,19 @@ class _MyApp extends State<MyApp>{
                   )
               ],
             ),
+          ),
+          Expanded(
+            child: Padding(
+                padding: EdgeInsets.all(20.0),
+                child: ListView(
+                  children: [
+                    WeatherTile(icon: Icons.thermostat_outlined, title: "Temperature", subtitle: "111"),
+                    WeatherTile(icon: Icons.filter_drama_outlined, title: "Weather", subtitle: "Apocalypse"),
+                    WeatherTile(icon: Icons.wb_sunny, title: "Humidity", subtitle: "Moist"),
+                    WeatherTile(icon: Icons.waves_outlined, title: "Wind Speed", subtitle: "99MPH")
+                  ],
+              )
+            )
           )
         ],
       )  
