@@ -8,6 +8,7 @@ class WeatherTile extends StatelessWidget{
 
   WeatherTile({required this.icon, required this.title, required this.subtitle});
 
+  //Display for Temperature, Weather, Humidity and Wind Speed
   @override
   Widget build (BuildContext context){
     return ListTile(

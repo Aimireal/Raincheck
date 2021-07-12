@@ -20,6 +20,7 @@ class MainWidget extends StatelessWidget{
     @required this.windSpeed
   });
 
+  //Build the widget for displaying weather
   @override
   Widget build (BuildContext context){
     return Column(children: [
@@ -66,7 +67,7 @@ class MainWidget extends StatelessWidget{
                 children: [
                   WeatherTile(icon: Icons.thermostat_outlined, title: "Temperature", subtitle: "${temp.toInt().toString()}°"),
                   WeatherTile(icon: Icons.filter_drama_outlined, title: "Weather", subtitle: "${weather.toString()}"),
-                  WeatherTile(icon: Icons.wb_sunny, title: "Humidity", subtitle: "${humidity.toString()}"),
+                  WeatherTile(icon: Icons.wb_sunny, title: "Humidity", subtitle: "${humidity.toString()}%"),
                   WeatherTile(icon: Icons.waves_outlined, title: "Wind Speed", subtitle: "${windSpeed.toInt().toString()} MPH")
                 ],
             )

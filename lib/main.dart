@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
 
+//Passing in data to the API
 Future<WeatherInfo> fetchWeather() async{
   final zipCode = "BD2";
   final countryCode = "GB";
@@ -19,6 +20,7 @@ Future<WeatherInfo> fetchWeather() async{
   }
 }
 
+//Initialising data values for display later
 class WeatherInfo{
   final location;
   final temp;
@@ -38,6 +40,7 @@ class WeatherInfo{
     @required this.windSpeed
   });
 
+  //Getting relevant values from the API's JSON
   factory WeatherInfo.fromJson(Map<String, dynamic> json){
     return WeatherInfo(
       location: json['name'],
@@ -51,6 +54,7 @@ class WeatherInfo{
   }
 }
 
+//Running the application
 void main() => runApp(
   MaterialApp(
     title: "Weather",
