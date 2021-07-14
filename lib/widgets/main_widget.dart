@@ -36,40 +36,41 @@ class MainWidget extends StatelessWidget{
               style: TextStyle(
                 fontSize: 30.0, 
                 fontWeight: FontWeight.w900,
-                color: Color(0xff9e9e9e)),
+                color: Color(0xff9e9e9e)
+              )
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
+              child: Text(
+                "${temp.toInt().toString()}°",
+                style: TextStyle(
+                  color: Colors.purple,
+                  fontSize: 40.0,
+                  fontWeight: FontWeight.w900
                 ),
-                Padding(
-                  padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
-                  child: Text(
-                    "${temp.toInt().toString()}°",
-                    style: TextStyle(
-                      color: Colors.purple,
-                      fontSize: 40.0,
-                      fontWeight: FontWeight.w900
-                    ),
-                  ),
-                ),
-                Text(
-                  "Highs of ${tempMax.toString()}°, Lows of ${tempMin.toString()}°",
-                  style: TextStyle(
-                    color: Color(0xff9e9e9e),
-                    fontSize: 14.0,
-                    fontWeight: FontWeight.w600
-                  ),
-                )
-            ],
-          ),
+              ),
+            ),
+            Text(
+              "Highs of ${tempMax.toString()}°, Lows of ${tempMin.toString()}°",
+              style: TextStyle(
+                color: Color(0xff9e9e9e),
+                fontSize: 14.0,
+                fontWeight: FontWeight.w600
+              ),
+            ),
+          ],
         ),
-        Expanded(
-          child: Padding(
-              padding: EdgeInsets.all(20.0),
-              child: ListView(
-                children: [
-                  WeatherTile(icon: Icons.thermostat_outlined, title: "Temperature", subtitle: "${temp.toInt().toString()}°"),
-                  WeatherTile(icon: Icons.filter_drama_outlined, title: "Weather", subtitle: "${weather.toString()}"),
-                  WeatherTile(icon: Icons.wb_sunny, title: "Humidity", subtitle: "${humidity.toString()}%"),
-                  WeatherTile(icon: Icons.waves_outlined, title: "Wind Speed", subtitle: "${windSpeed.toInt().toString()} MPH")
-                ],
+      ),
+      Expanded(
+        child: Padding(
+            padding: EdgeInsets.all(20.0),
+            child: ListView(
+              children: [
+                WeatherTile(icon: Icons.thermostat_outlined, title: "Temperature", subtitle: "${temp.toInt().toString()}°"),
+                WeatherTile(icon: Icons.filter_drama_outlined, title: "Weather", subtitle: "${weather.toString()}"),
+                WeatherTile(icon: Icons.wb_sunny, title: "Humidity", subtitle: "${humidity.toString()}%"),
+                WeatherTile(icon: Icons.waves_outlined, title: "Wind Speed", subtitle: "${windSpeed.toInt().toString()} MPH")
+              ],
             )
           )
         )
