@@ -1,16 +1,32 @@
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:http/http.dart' as http;
-import 'widgets/main_widget.dart';
+import 'package:weatherapp/screens/loading_screen.dart';
 
-import 'dart:async';
-import 'dart:convert';
 
+void main(){
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget{
+  //Application root
+  @override 
+  Widget build(BuildContext context){
+    return MaterialApp(
+      theme: ThemeData.dark(),
+      home: Scaffold(
+        body: LoadingScreen(),
+      ),
+    );
+  }
+}
+
+
+
+
+/*
 //Passing in data to the API
 Future<WeatherInfo> fetchWeather() async{
   final zipCode = "BD2";
   final countryCode = "GB";
-  final apiKey = "3159cf0581c711d50d2731117f37620a";
   final requestUrl = "http://api.openweathermap.org/data/2.5/weather?zip=${zipCode},${countryCode}&units=metric&appid=${apiKey}";
 
   final response = await http.get(Uri.parse(requestUrl));
@@ -108,3 +124,4 @@ void initState(){
     );
   }
 }
+*/
