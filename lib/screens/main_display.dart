@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:weatherapp/constants.dart';
 import 'package:weatherapp/utils/weather.dart';
 
 class MainDisplay extends StatefulWidget {
@@ -29,7 +27,7 @@ class _MainDisplayState extends State<MainDisplay> {
 
   @override
   void initState() {
-    // TODO: implement initState
+    // TO DO: implement initState
     super.initState();
 
     updateDisplayInfo(widget.weatherData);

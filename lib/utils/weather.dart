@@ -6,7 +6,7 @@ import 'package:weatherapp/constants.dart';
 import 'package:weatherapp/credentials.dart';
 import 'package:weatherapp/utils/location.dart';
 
-
+//Setting icon and background image
 class WeatherDisplayData{
   Icon weatherIcon;
   AssetImage weatherImage;
@@ -14,6 +14,7 @@ class WeatherDisplayData{
   WeatherDisplayData({required this.weatherIcon, required this.weatherImage});
 }
 
+//Request weather from the API on coordinates
 class WeatherData{
   WeatherData({required this.locationData});
   LocationHelper locationData;
@@ -27,7 +28,8 @@ class WeatherData{
       Uri.parse('http://api.openweathermap.org/data/2.5/weather?lat=${locationData.latitude}&lon=${locationData.longitude}&appid=${apiKey}&units=metric')
     );
 
-    //Retreive the JSON data for weather
+    //Return the weather values
+    //To Do: Return more information fields
     if(response.statusCode == 200){
       String data = response.body;
       var currentWeather = jsonDecode(data);
@@ -42,6 +44,9 @@ class WeatherData{
     }
   }
 
+  //Icon changing based on weather
+  //To Do: Maybe update into switch statement and take into account more conditions (Sun + Cloud, Snow, Fog)
+  //       Add more backgrounds with fair use, to define day/night cycle and icon for weather
   WeatherDisplayData getWeatherDisplayData(){
     if(currentCon < 600){
       return WeatherDisplayData(

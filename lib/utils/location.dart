@@ -5,6 +5,7 @@ class LocationHelper{
   late double latitude;
   late double longitude;
 
+  //Request users current location, return latitude and longitude
   Future<void> getCurrentLocation() async{
     Location location = Location();
 
