@@ -1,16 +1,25 @@
-# weatherapp
+# RainCheck
+A weather checking application based on Flutter. Written in VSCode using Dart
+Utilises the OpenWeatherMaps API for reporting the weather and the FontAwesome icons for the weather icons
 
-A new Flutter project.
+## Features:
+- Day/Night cycle for background
+- Changing icons dependent on weather
+- Brief, informative overview of the current weather in your area
+- Works across web/android seamlessly
+- Sleek, minimalistic design elements
 
-## Getting Started
+![alt_text](https://github.com/Aimireal/FlutterWeather/blob/master/assets/Screenshot/UI.png)
+*(Note: GPS was set manually, hence the differences in reported locations in the screenshot)*
 
-This project is a starting point for a Flutter application.
+## To Run:
+Currently no executable has been provided, and an API key for OpenWeatherMaps must be provided inside of /lib/credentials/
+Mine is currently left as there is no billing info, and I'm *just not really bothered* at this point in time
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## To-Do:
+- Add a daytime background, the code exists just currently runs the normal
+  - Adding a timezone based switch for this instead of static time
+- Adding more icons for different conditions
+- Updating the spash screen design and function
+- Neaten up the UI builder
+- Update main interface with more design elements, functionality and aesthetic
