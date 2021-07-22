@@ -19,8 +19,17 @@ class WeatherData{
   WeatherData({required this.locationData});
   LocationHelper locationData;
 
-  double currentTemp = 0;
+  double currentTemp = 0.0;
+  double currentTempMin = 0.0;
+  double currentTempMax = 0.0;
+  double currentWindSpeed = 0.0;
+
+  String currentDescription = "";
+  String currentLocation = "";
+  String currentCountry = "";
+
   int currentCon = 0;
+  int currentHumidity = 0;
 
   Future<void> getCurrentTemperature() async {
    
@@ -29,13 +38,21 @@ class WeatherData{
     );
 
     //Return the weather values
-    //To Do: Return more information fields
     if(response.statusCode == 200){
       String data = response.body;
       var currentWeather = jsonDecode(data);
       try{
         currentTemp = currentWeather['main']['temp'];
+        currentTempMin = currentWeather['main']['temp_min'];
+        currentTempMax = currentWeather['main']['temp_max'];
+        currentWindSpeed = currentWeather['wind']['speed'];
+
+        currentDescription = currentWeather['weather'][0]['description'];
+        currentLocation = currentWeather['sys']['country'];
+        currentCountry = currentWeather['name'];
+
         currentCon = currentWeather['weather'][0]['id'];
+        currentHumidity = currentWeather['main']['humidity'];
       }catch(e){
         print("Exception: $e");
       }

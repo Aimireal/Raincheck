@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:weatherapp/constants.dart';
@@ -21,6 +23,7 @@ class _LoadingScreenState extends State<LoadingScreen>{
 
     if(locationData.latitude == null || locationData.longitude == null){
       //Error handle no location value
+
     }
   }
 
@@ -60,7 +63,9 @@ class _LoadingScreenState extends State<LoadingScreen>{
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
-          gradient: kGradient,
+          image: DecorationImage(
+            image: FileImage(File('assets/loadingbackground.png')),
+          ),
         ),
         child: Center(
           child: SpinKitCircle(
