@@ -68,19 +68,19 @@ class WeatherData{
     if(currentCon < 600){
       return WeatherDisplayData(
         weatherIcon: kCloudIcon,
-        weatherImage: AssetImage('assets/weatherbackground.jpg'),
+        weatherImage: AssetImage('assets/backgroundnight.png'),
       );
     }else{
       var currentTime = new DateTime.now();
       if(currentTime.hour >= 17){
         return WeatherDisplayData(
           weatherIcon: kMoonIcon,
-          weatherImage: AssetImage('assets/weatherbackground.jpg'),
+          weatherImage: AssetImage('assets/backgroundnight.png'),
           );
       }else{
         return WeatherDisplayData(
           weatherIcon: kSunIcon,
-          weatherImage: AssetImage('assets/weatherbackground.jpg'),
+          weatherImage: AssetImage('assets/backgroundnight.png'),
         );
       }
     }

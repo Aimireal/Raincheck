@@ -61,21 +61,25 @@ class _LoadingScreenState extends State<LoadingScreen>{
   @override 
   Widget build(BuildContext buildContext){
     return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: FileImage(File('assets/loadingbackground.png')),
-          ),
-        ),
-        child: Center(
-          child: SpinKitCircle(
-            color: Colors.white,
-            size: 150.0,
-            duration: Duration(milliseconds: 1500),
+      body: new Stack(
+        children: <Widget>[
+          new Container(
+          decoration: new BoxDecoration(
+            image: new DecorationImage(
+              image: new AssetImage('assets/loadingbackground.png'),
+              fit: BoxFit.cover,
             ),
           ),
-        )
-      );
-    }
+          child: Center(
+            child: SpinKitCircle(
+              color: Colors.white,
+              size: 150.0,
+              duration: Duration(milliseconds: 1500),
+              ),
+            ),
+          )
+        ],
+      )
+    );
   }
-
+}
