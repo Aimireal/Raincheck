@@ -23,3 +23,4 @@ Mine is currently left as there is no billing info, and I'm *just not really bot
 - Updating the spash screen design and function
 - Neaten up the UI builder
 - Update main interface with more design elements, functionality and aesthetic
+- Future weather for given location
