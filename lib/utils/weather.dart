@@ -14,7 +14,7 @@ class WeatherDisplayData{
   WeatherDisplayData({required this.weatherIcon, required this.weatherImage});
 }
 
-//Request weather from the API on coordinates
+//Request weather from the API on lat/long
 class WeatherData{
   WeatherData({required this.locationData});
   LocationHelper locationData;
@@ -31,10 +31,12 @@ class WeatherData{
   int currentCon = 0;
   int currentHumidity = 0;
 
-  Future<void> getCurrentTemperature() async {
-   
+  Future<void> getCurrentTemperature() async{
     Response response = await get(
-      Uri.parse('http://api.openweathermap.org/data/2.5/weather?lat=${locationData.latitude}&lon=${locationData.longitude}&appid=${apiKey}&units=metric')
+      //Uri.parse('http://api.openweathermap.org/data/2.5/weather?lat=${locationData.latitude}&lon=${locationData.longitude}&appid=${apiKey}&units=metric')
+
+      //One call API. Returns more data than the standard data
+      Uri.parse('https://api.openweathermap.org/data/2.5/onecall?lat=${locationData.latitude}&lon=${locationData.longitude}&exclude=alerts&appid=${apiKey}&units=metric')
     );
 
     //Return the weather values
@@ -42,6 +44,16 @@ class WeatherData{
       String data = response.body;
       var currentWeather = jsonDecode(data);
       try{
+        currentTemp = currentWeather['current']['temp'];
+        currentTempMin = currentWeather['daily']['temp']['min'];
+        currentTempMax = currentWeather['main']['temp']['max'];
+        currentWindSpeed = currentWeather['current']['wind_speed'];
+        //currentDescription = currentWeather['current']['weather'][0]['description'];
+        currentCon = currentWeather['current']['weather']['id'];
+        currentHumidity = currentWeather['current']['humidity'];
+
+        /*
+        //Old API
         currentTemp = currentWeather['main']['temp'];
         currentTempMin = currentWeather['main']['temp_min'];
         currentTempMax = currentWeather['main']['temp_max'];
@@ -53,6 +65,7 @@ class WeatherData{
 
         currentCon = currentWeather['weather'][0]['id'];
         currentHumidity = currentWeather['main']['humidity'];
+        */
       }catch(e){
         print("Exception: $e");
       }

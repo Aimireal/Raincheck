@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+
 import 'package:weatherapp/utils/weather.dart';
+import 'package:weatherapp/utils/geocoding.dart';
 import 'package:weatherapp/utils/string_formatter.dart';
 
 class MainDisplay extends StatefulWidget {
   //Initialise a WeatherData object to retreive data from the OpenWeatherMaps API
-  MainDisplay({required this.weatherData});
+  MainDisplay({required this.weatherData, required this.geoData});
 
   final WeatherData weatherData;
+  final GeoData geoData;
 
   @override
   _MainDisplayState createState() => _MainDisplayState();
@@ -20,14 +23,15 @@ class _MainDisplayState extends State<MainDisplay> {
   late int humidity;
   late int windSpeed;
 
-  late String weatherDesc;
-  late String locationName;
-  late String countryName;
+   //Added temp values for strings
+  late String weatherDesc = "Bit chilly";
+  late String locationName = "Bradford";
+  late String countryName = "GB";
 
   late Icon weatherDisplayIcon;
   late AssetImage backgroundImage;
 
-  void updateDisplayInfo(WeatherData weatherData) {
+  void updateDisplayInfo(WeatherData weatherData, GeoData geoData) {
     setState(() {
       temperature = weatherData.currentTemp.round();
       tempMin = weatherData.currentTempMin.round();
@@ -36,10 +40,11 @@ class _MainDisplayState extends State<MainDisplay> {
       windSpeed = weatherData.currentWindSpeed.round();
 
       //Apply capitalise function from string_formatter
-      weatherDesc = weatherData.currentDescription.capitalise();
-      locationName = weatherData.currentLocation.capitalise();
-      countryName = weatherData.currentCountry;
+      //weatherDesc = weatherData.currentDescription.capitalise();
+      //locationName = geoData.currentLocation.capitalise();
+      //countryName = geoData.currentCountry;
 
+      //Dynamic icon/background
       WeatherDisplayData weatherDisplayData =
           weatherData.getWeatherDisplayData();
       backgroundImage = weatherDisplayData.weatherImage;
@@ -49,13 +54,11 @@ class _MainDisplayState extends State<MainDisplay> {
 
   @override
   void initState() {
-    // TO DO: implement initState
     super.initState();
-
-    updateDisplayInfo(widget.weatherData);
+    updateDisplayInfo(widget.weatherData, widget.geoData);
   }
 
-  //Surely there is a better layout system????
+  //Surely there is a better layout system???? Widgetbuilder maybe limiting
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -93,7 +96,7 @@ class _MainDisplayState extends State<MainDisplay> {
             ),
             Center(
               child: Text(
-                '$countryName, $locationName',
+                '$locationName, $countryName', 
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 30.0,
