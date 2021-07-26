@@ -48,7 +48,7 @@ class WeatherData{
         currentTempMin = currentWeather['daily']['temp']['min'];
         currentTempMax = currentWeather['main']['temp']['max'];
         currentWindSpeed = currentWeather['current']['wind_speed'];
-        //currentDescription = currentWeather['current']['weather'][0]['description'];
+        currentDescription = currentWeather['current']['weather']['main'];
         currentCon = currentWeather['current']['weather']['id'];
         currentHumidity = currentWeather['current']['humidity'];
 

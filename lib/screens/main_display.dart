@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:weatherapp/utils/weather.dart';
 import 'package:weatherapp/utils/geocoding.dart';
 import 'package:weatherapp/utils/string_formatter.dart';
+import 'package:weatherapp/screens/weather_display.dart';
 
 class MainDisplay extends StatefulWidget {
   //Initialise a WeatherData object to retreive data from the OpenWeatherMaps API
@@ -24,9 +25,9 @@ class _MainDisplayState extends State<MainDisplay> {
   late int windSpeed;
 
    //Added temp values for strings
-  late String weatherDesc = "Bit chilly";
-  late String locationName = "Bradford";
-  late String countryName = "GB";
+  late String weatherDesc = "N/A";
+  late String locationName = "";
+  late String countryName = "";
 
   late Icon weatherDisplayIcon;
   late AssetImage backgroundImage;
@@ -41,8 +42,8 @@ class _MainDisplayState extends State<MainDisplay> {
 
       //Apply capitalise function from string_formatter
       //weatherDesc = weatherData.currentDescription.capitalise();
-      //locationName = geoData.currentLocation.capitalise();
-      //countryName = geoData.currentCountry;
+      locationName = geoData.currentCity.capitalise();
+      countryName = geoData.currentCountry;
 
       //Dynamic icon/background
       WeatherDisplayData weatherDisplayData =
@@ -58,102 +59,20 @@ class _MainDisplayState extends State<MainDisplay> {
     updateDisplayInfo(widget.weatherData, widget.geoData);
   }
 
-  //Surely there is a better layout system???? Widgetbuilder maybe limiting
+  //Build interface
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        constraints: BoxConstraints.expand(),
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: backgroundImage,
-            fit: BoxFit.cover,
-          ),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            SizedBox(
-              height: 85,
-            ),
-            Container(
-              child: weatherDisplayIcon,
-            ),
-            SizedBox(
-              height: 15.0,
-            ),
-            Center(
-              child: Text(
-                ' $temperature°',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 80.0,
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 5,
-            ),
-            Center(
-              child: Text(
-                '$locationName, $countryName', 
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 30.0,
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 15,
-            ),
-            Center(
-              child: Text(
-                '$weatherDesc',
-                style: TextStyle(
-                  color: Colors.grey,
-                  fontSize: 40.0,
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 30,
-            ),
-            Center(
-              child: Text(
-                "Min: $tempMin° Max: $tempMax",
-                style: TextStyle(
-                  color: Colors.grey,
-                  fontSize: 30.0,
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 55,
-            ),
-            Center(
-              child: Text(
-                "Humidity: $humidity%",
-                style: TextStyle(
-                  color: Colors.grey,
-                  fontSize: 20.0,
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 30,
-            ),
-            Center(
-              child: Text(
-                "Wind Speed: $windSpeed MPH",
-                style: TextStyle(
-                  color: Colors.grey,
-                  fontSize: 20.0,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
+    return Weather_display(
+      backgroundImage: backgroundImage, 
+      weatherDisplayIcon: weatherDisplayIcon, 
+      temperature: temperature, 
+      locationName: locationName, 
+      countryName: countryName, 
+      weatherDesc: weatherDesc, 
+      tempMin: tempMin, 
+      tempMax: tempMax, 
+      humidity: humidity, 
+      windSpeed: windSpeed
     );
   }
 }
