@@ -1,7 +1,7 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+
 import 'package:weatherapp/constants.dart';
 import 'package:weatherapp/credentials.dart';
 import 'package:weatherapp/utils/location.dart';
@@ -31,12 +31,16 @@ class WeatherData{
   int currentCon = 0;
   int currentHumidity = 0;
 
+  //Future settings switch
+  String appLang = "en";
+  String appUnits = "metric";
+
   Future<void> getCurrentTemperature() async{
     Response response = await get(
-      //Uri.parse('http://api.openweathermap.org/data/2.5/weather?lat=${locationData.latitude}&lon=${locationData.longitude}&appid=${apiKey}&units=metric')
-
       //One call API. Returns more data than the standard data
-      Uri.parse('https://api.openweathermap.org/data/2.5/onecall?lat=${locationData.latitude}&lon=${locationData.longitude}&exclude=alerts&appid=${apiKey}&units=metric')
+      Uri.parse(
+        'https://api.openweathermap.org/data/2.5/onecall?lat=${locationData.latitude}&lon=${locationData.longitude}&exclude=&appid=${apiKey}&units=${appUnits}&lang=${appLang}'
+        )
     );
 
     //Return the weather values
@@ -45,27 +49,12 @@ class WeatherData{
       var currentWeather = jsonDecode(data);
       try{
         currentTemp = currentWeather['current']['temp'];
-        currentTempMin = currentWeather['daily']['temp']['min'];
-        currentTempMax = currentWeather['main']['temp']['max'];
+        currentTempMin = currentWeather['daily'][0]['temp']['min'];
+        currentTempMax = currentWeather['daily'][0]['temp']['max'];
         currentWindSpeed = currentWeather['current']['wind_speed'];
-        currentDescription = currentWeather['current']['weather']['main'];
+        currentDescription = currentWeather['current']['weather'][0]['description'];
         currentCon = currentWeather['current']['weather']['id'];
         currentHumidity = currentWeather['current']['humidity'];
-
-        /*
-        //Old API
-        currentTemp = currentWeather['main']['temp'];
-        currentTempMin = currentWeather['main']['temp_min'];
-        currentTempMax = currentWeather['main']['temp_max'];
-        currentWindSpeed = currentWeather['wind']['speed'];
-
-        currentDescription = currentWeather['weather'][0]['description'];
-        currentLocation = currentWeather['sys']['country'];
-        currentCountry = currentWeather['name'];
-
-        currentCon = currentWeather['weather'][0]['id'];
-        currentHumidity = currentWeather['main']['humidity'];
-        */
       }catch(e){
         print("Exception: $e");
       }
@@ -76,7 +65,7 @@ class WeatherData{
 
   //Icon changing based on weather
   //To Do: Maybe update into switch statement and take into account more conditions (Sun + Cloud, Snow, Fog)
-  //       Add more backgrounds with fair use, to define day/night cycle and icon for weather
+  //Kinda crazy? How about splitting background. Making a dayscape and nightscape, then if cloudy we add more to sky? Madness
   WeatherDisplayData getWeatherDisplayData(){
     if(currentCon < 600){
       return WeatherDisplayData(
@@ -85,7 +74,7 @@ class WeatherData{
       );
     }else{
       var currentTime = new DateTime.now();
-      if(currentTime.hour >= 17){
+      if(currentTime.hour >= 19){
         return WeatherDisplayData(
           weatherIcon: kMoonIcon,
           weatherImage: AssetImage('assets/backgroundnight.png'),
@@ -93,7 +82,7 @@ class WeatherData{
       }else{
         return WeatherDisplayData(
           weatherIcon: kSunIcon,
-          weatherImage: AssetImage('assets/backgroundnight.png'),
+          weatherImage: AssetImage('assets/backgroundday.png'),
         );
       }
     }

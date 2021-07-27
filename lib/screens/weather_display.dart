@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class Weather_display extends StatelessWidget {
-  const Weather_display({
+class Weather_Display extends StatelessWidget {
+  const Weather_Display({
     Key? key,
     required this.backgroundImage,
     required this.weatherDisplayIcon,
@@ -13,8 +13,9 @@ class Weather_display extends StatelessWidget {
     required this.tempMax,
     required this.humidity,
     required this.windSpeed,
-  }) : super(key: key);
-
+  }) 
+  
+  : super(key: key);
   final AssetImage backgroundImage;
   final Icon weatherDisplayIcon;
   final int temperature;
@@ -95,7 +96,7 @@ class Weather_display extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: 55,
+              height: 250,
             ),
             Center(
               child: Text(

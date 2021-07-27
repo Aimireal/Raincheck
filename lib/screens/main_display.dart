@@ -25,7 +25,7 @@ class _MainDisplayState extends State<MainDisplay> {
   late int windSpeed;
 
    //Added temp values for strings
-  late String weatherDesc = "N/A";
+  late String weatherDesc = "";
   late String locationName = "";
   late String countryName = "";
 
@@ -37,11 +37,11 @@ class _MainDisplayState extends State<MainDisplay> {
       temperature = weatherData.currentTemp.round();
       tempMin = weatherData.currentTempMin.round();
       tempMax = weatherData.currentTempMax.round();
-      humidity = weatherData.currentHumidity.toInt();
+      humidity = weatherData.currentHumidity.round();
       windSpeed = weatherData.currentWindSpeed.round();
 
       //Apply capitalise function from string_formatter
-      //weatherDesc = weatherData.currentDescription.capitalise();
+      weatherDesc = weatherData.currentDescription.capitalise();
       locationName = geoData.currentCity.capitalise();
       countryName = geoData.currentCountry;
 
@@ -62,7 +62,7 @@ class _MainDisplayState extends State<MainDisplay> {
   //Build interface
   @override
   Widget build(BuildContext context) {
-    return Weather_display(
+    return Weather_Display(
       backgroundImage: backgroundImage, 
       weatherDisplayIcon: weatherDisplayIcon, 
       temperature: temperature, 
