@@ -62,6 +62,35 @@ class _MainDisplayState extends State<MainDisplay> {
   //Build interface
   @override
   Widget build(BuildContext context) {
+    //Pages
+    final PageController controller = PageController(initialPage: 0);
+    return PageView(
+      scrollDirection: Axis.horizontal,
+      controller: controller,
+      children: <Widget>[
+        Center(
+          child: Weather_Display(
+            backgroundImage: backgroundImage, 
+            weatherDisplayIcon: weatherDisplayIcon, 
+            temperature: temperature, 
+            locationName: locationName, 
+            countryName: countryName, 
+            weatherDesc: weatherDesc, 
+            tempMin: tempMin, 
+            tempMax: tempMax, 
+            humidity: humidity, 
+            windSpeed: windSpeed,
+          ),
+        ),
+        Center(
+          child: 
+          Text('Daily'),
+        ),
+      ]
+    );
+
+    /*
+    //Display values
     return Weather_Display(
       backgroundImage: backgroundImage, 
       weatherDisplayIcon: weatherDisplayIcon, 
@@ -74,5 +103,6 @@ class _MainDisplayState extends State<MainDisplay> {
       humidity: humidity, 
       windSpeed: windSpeed
     );
+    */
   }
 }
