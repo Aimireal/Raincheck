@@ -87,4 +87,57 @@ class WeatherData{
       }
     }
   }
+
+  /*
+  New Switch case for changing the icons
+  Removing moon icon from rotation, replacing with day/night wallpaper
+
+  Idea for expansion is dynamic image creation for background
+  This will work by checking ID and adjusting overlays, then building into an image
+  _____________________________________________________________________________________
+
+  WeatherDisplayData getWeatherDisplayData(){
+    //On case of basic description matching string
+    Switch(currentMain){
+      case "Thunderstorm":
+        weatherIcon: kRainIcon
+        print("Thunderstorm");
+        break;
+      case "Drizzle":
+        weatherIcon: kRainIcon
+        print("Drizzle");
+        break;
+      case "Rain":
+        weatherIcon: kRainIcon
+        print("Rain");
+        break;
+      case "Snow":
+        weatherIcon: kSnowIcon
+        print("Snow");
+        break;
+      case "Atmosphere":
+        weatherIcon: kSunIcon
+        print("Atmosphere");
+        break;
+      case "Clear":
+        weatherIcon: kSunIcon
+        print("Clear");
+        break;
+      case "Clouds":
+        weatherIcon: kCloudIcon
+        print("Clouds");
+        break;
+      }
+
+      var currentTime = DateTime.now;
+      if(currentTime.now >= 19)
+      {
+        weatherImage: AssetImage('assets/backgroundnight.png')
+      } else
+      {
+        weatherImage: AssetImage('assets/backgroundday.png')
+      }
+    }
+    */
+  
 }

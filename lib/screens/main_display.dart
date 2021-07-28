@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:weatherapp/utils/weather.dart';
 import 'package:weatherapp/utils/geocoding.dart';
 import 'package:weatherapp/utils/string_formatter.dart';
-import 'package:weatherapp/screens/weather_display.dart';
+import 'package:weatherapp/widgets/weather_display.dart';
 
 class MainDisplay extends StatefulWidget {
   //Initialise a WeatherData object to retreive data from the OpenWeatherMaps API
@@ -62,13 +62,13 @@ class _MainDisplayState extends State<MainDisplay> {
   //Build interface
   @override
   Widget build(BuildContext context) {
-    //Pages
     final PageController controller = PageController(initialPage: 0);
     return PageView(
       scrollDirection: Axis.horizontal,
       controller: controller,
       children: <Widget>[
         Center(
+          //Main Weather Display
           child: Weather_Display(
             backgroundImage: backgroundImage, 
             weatherDisplayIcon: weatherDisplayIcon, 
@@ -83,26 +83,11 @@ class _MainDisplayState extends State<MainDisplay> {
           ),
         ),
         Center(
+          //Daily Weather for Week
           child: 
           Text('Daily'),
         ),
       ]
     );
-
-    /*
-    //Display values
-    return Weather_Display(
-      backgroundImage: backgroundImage, 
-      weatherDisplayIcon: weatherDisplayIcon, 
-      temperature: temperature, 
-      locationName: locationName, 
-      countryName: countryName, 
-      weatherDesc: weatherDesc, 
-      tempMin: tempMin, 
-      tempMax: tempMax, 
-      humidity: humidity, 
-      windSpeed: windSpeed
-    );
-    */
   }
 }
