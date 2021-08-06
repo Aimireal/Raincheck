@@ -63,7 +63,7 @@ class WeatherData{
         currentTempMax = currentWeather['daily'][0]['temp']['max'];
         currentWindSpeed = currentWeather['current']['wind_speed'];
         currentDescription = currentWeather['current']['weather'][0]['description'];
-        currentCon = currentWeather['current']['weather']['id'];
+        currentCon = currentWeather['current']['weather'][0]['id'];
         currentHumidity = currentWeather['current']['humidity'];
       }catch(e){
         print("Exception: $e");
@@ -91,80 +91,102 @@ class WeatherData{
   }
 
   //Icon changing based on weather
-  //To Do: Maybe update into switch statement and take into account more conditions (Sun + Cloud, Snow, Fog)
-  //Kinda crazy? How about splitting background. Making a dayscape and nightscape, then if cloudy we add more to sky? Madness
   WeatherDisplayData getWeatherDisplayData(){
-    if(currentCon < 600){
-      return WeatherDisplayData(
-        weatherIcon: kCloudIcon,
-        weatherImage: AssetImage('assets/backgroundnight.png'),
-      );
-    }else{
-      var currentTime = new DateTime.now();
-      if(currentTime.hour >= 19){
-        return WeatherDisplayData(
-          weatherIcon: kMoonIcon,
-          weatherImage: AssetImage('assets/backgroundnight.png'),
-          );
-      }else{
-        return WeatherDisplayData(
-          weatherIcon: kSunIcon,
-          weatherImage: AssetImage('assets/backgroundday.png'),
-        );
-      }
+    var dayNight;
+    var clearIcon;
+    var currentTime = new DateTime.now();
+
+    //Set background to day or night version
+    if(currentTime.hour >= 19){
+      dayNight = AssetImage('assets/backgroundnight.png');
+      clearIcon = kMoonIcon;
+    } else{
+      dayNight = AssetImage('assets/backgroundday.png');
+      clearIcon = kSunIcon;
     }
-  }
 
-  /*
-  New Switch case for changing the icons
-  Removing moon icon from rotation, replacing with day/night wallpaper
-
-  Idea for expansion is dynamic image creation for background
-  This will work by checking ID and adjusting overlays, then building into an image
-  _____________________________________________________________________________________
-
-  WeatherDisplayData getWeatherDisplayData(){
-    //On case of basic description matching string
-    Switch(currentMain){
-      case "Thunderstorm":
-        weatherIcon: kRainIcon
-        print("Thunderstorm");
-        break;
-      case "Drizzle":
-        weatherIcon: kRainIcon
-        print("Drizzle");
-        break;
-      case "Rain":
-        weatherIcon: kRainIcon
-        print("Rain");
-        break;
-      case "Snow":
-        weatherIcon: kSnowIcon
-        print("Snow");
-        break;
-      case "Atmosphere":
-        weatherIcon: kSunIcon
-        print("Atmosphere");
-        break;
-      case "Clear":
-        weatherIcon: kSunIcon
-        print("Clear");
-        break;
-      case "Clouds":
-        weatherIcon: kCloudIcon
-        print("Clouds");
-        break;
-      }
-
-      var currentTime = DateTime.now;
-      if(currentTime.now >= 19)
-      {
-        weatherImage: AssetImage('assets/backgroundnight.png')
-      } else
-      {
-        weatherImage: AssetImage('assets/backgroundday.png')
-      }
+    /*
+    switch(currentCon){
+      case 'Thunderstorm':
+        return WeatherDisplayData(
+        weatherIcon: kLightningIcon,
+        weatherImage: dayNight,
+      );
+      case 'Drizzle':
+        return WeatherDisplayData(
+        weatherIcon: kDrizzleIcon,
+        weatherImage: dayNight,
+      );
+      case 'Rain':
+        return WeatherDisplayData(
+        weatherIcon: kRainIcon,
+        weatherImage: dayNight,
+      );
+      case 'Snow':
+        return WeatherDisplayData(
+        weatherIcon: kSnowIcon,
+        weatherImage: dayNight,
+      );
+      case 'Clear':
+        return WeatherDisplayData(
+        weatherIcon: clearIcon,
+        weatherImage: dayNight,
+      );
+      case 'Clouds':
+        return WeatherDisplayData(
+        weatherIcon: kCloudIcon,
+        weatherImage: dayNight,
+      );
+      default: 
+        return WeatherDisplayData(
+        weatherIcon: kErrorIcon,
+        weatherImage: dayNight,
+      );
     }
     */
-  
+     
+    //Check conditions from API to decide icon
+    if(currentCon >= 200 && currentCon < 300){
+      return WeatherDisplayData(
+        weatherIcon: kLightningIcon,
+        weatherImage: dayNight,
+      );
+    } else if(currentCon >= 300 && currentCon < 400){
+      return WeatherDisplayData(
+        weatherIcon: kDrizzleIcon,
+        weatherImage: dayNight,
+      );
+    } else if(currentCon >= 500 && currentCon < 600){
+      return WeatherDisplayData(
+        weatherIcon: kRainIcon,
+        weatherImage: dayNight,
+      );
+    } else if (currentCon >= 600 && currentCon < 700){
+      return WeatherDisplayData(
+        weatherIcon: kSnowIcon,
+        weatherImage: dayNight,
+      );
+    } else if (currentCon >= 701 && currentCon < 800){
+      return WeatherDisplayData(
+        weatherIcon: kAtmosphereIcon,
+        weatherImage: dayNight,
+      );
+    } else if (currentCon == 800){
+      return WeatherDisplayData(
+        weatherIcon: clearIcon,
+        weatherImage: dayNight,
+      );
+    } else if (currentCon >= 801 && currentCon <= 804){
+      return WeatherDisplayData(
+        weatherIcon: kCloudIcon,
+        weatherImage: dayNight,
+      );
+    } else{
+      return WeatherDisplayData(
+        weatherIcon: kErrorIcon,
+        weatherImage: dayNight,
+      );
+    }
+    
+  }
 }

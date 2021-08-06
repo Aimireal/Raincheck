@@ -1,14 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+//Basic Background (Unused as of 6/8/21)
 const kGradient = LinearGradient(
   begin: Alignment.topCenter,
   end: Alignment.bottomCenter,
   colors: [Colors.deepPurple, Colors.blue],
 );
 
-Icon kCloudIcon = Icon(
-  FontAwesomeIcons.cloud,
+//App Icons
+Icon kLightningIcon = Icon(
+  FontAwesomeIcons.bolt,
+  size: 75.0,
+  color: Colors.white,
+);
+
+Icon kDrizzleIcon = Icon(
+  FontAwesomeIcons.cloudRain,
+  size: 75.0,
+  color: Colors.white,
+);
+
+Icon kRainIcon = Icon(
+  FontAwesomeIcons.cloudShowersHeavy,
+  size: 75.0,
+  color: Colors.white,
+);
+
+Icon kSnowIcon = Icon(
+  FontAwesomeIcons.snowflake,
+  size: 75.0,
+  color: Colors.white,
+);
+
+Icon kAtmosphereIcon = Icon(
+  FontAwesomeIcons.smog,
   size: 75.0,
   color: Colors.white,
 );
@@ -19,8 +45,20 @@ Icon kSunIcon = Icon(
   color: Colors.white,
 );
 
+Icon kCloudIcon = Icon(
+  FontAwesomeIcons.cloud,
+  size: 75.0,
+  color: Colors.white,
+);
+
 Icon kMoonIcon = Icon(
   FontAwesomeIcons.moon,
+  size: 75.0,
+  color: Colors.white,
+);
+
+Icon kErrorIcon = Icon(
+  FontAwesomeIcons.solidQuestionCircle,
   size: 75.0,
   color: Colors.white,
 );
