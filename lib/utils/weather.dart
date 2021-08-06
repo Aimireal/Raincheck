@@ -5,6 +5,7 @@ import 'package:http/http.dart';
 import 'package:weatherapp/constants.dart';
 import 'package:weatherapp/credentials.dart';
 import 'package:weatherapp/utils/location.dart';
+import 'package:weatherapp/utils/dailyweather.dart';
 
 //Setting icon and background image
 class WeatherDisplayData{
@@ -19,6 +20,11 @@ class WeatherData{
   WeatherData({required this.locationData});
   LocationHelper locationData;
 
+  //List for daily/hourly cards
+  List<DailyWeather> dailyWeatherCards = [];
+  //List<HourlyWeather> hourlyWeathercards = [];
+
+  //Current weather values
   double currentTemp = 0.0;
   double currentTempMin = 0.0;
   double currentTempMax = 0.0;
@@ -30,6 +36,10 @@ class WeatherData{
 
   int currentCon = 0;
   int currentHumidity = 0;
+
+  //Daily weather values
+  dynamic maxTemp;
+  dynamic minTemp;
 
   //Future settings switch
   String appLang = "en";
@@ -61,6 +71,23 @@ class WeatherData{
     }else{
       print('Error: Unable to fetch weather data');
     }
+  }
+
+  //Daily weather values - Check against inspiration later since changed function a lot
+  void getDailyWeather(dynamic response){
+    List<dynamic> jsonDays = response['daily'];
+    jsonDays.forEach((day){
+      dailyWeatherCards.add(
+        DailyWeather(
+          weekday: kWeekdays.toString()[
+              DateTime.fromMillisecondsSinceEpoch(day['dt'] * 1000).weekday],
+          conditionWeather: day['weather'][0]['id'],
+          maxTemp: day['temp']['max'].round(),
+          minTemp: day['temp']['min'].round(),
+        ),
+      );
+    });
+    print('Daily MaxTemp: $maxTemp - MinTemp: $minTemp');
   }
 
   //Icon changing based on weather

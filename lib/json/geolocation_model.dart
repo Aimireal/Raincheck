@@ -1,3 +1,4 @@
+/*
 class GeolocationModel {
   String name;
   LocalNames localNames;
@@ -145,3 +146,4 @@ class LocalNames {
     return data;
   }
 }
+*/
