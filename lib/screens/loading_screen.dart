@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:weatherapp/screens/main_display.dart';
 import 'package:weatherapp/utils/location.dart';
-import 'package:weatherapp/utils/weather.dart';
+import 'package:weatherapp/models/weather.dart';
 import 'package:weatherapp/utils/geocoding.dart';
 
 

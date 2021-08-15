@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
-import 'package:weatherapp/utils/weather.dart';
+import 'package:weatherapp/models/weather.dart';
 import 'package:weatherapp/utils/geocoding.dart';
 import 'package:weatherapp/utils/string_formatter.dart';
 import 'package:weatherapp/widgets/weather_display.dart';
+import 'package:weatherapp/models/dailyweather.dart';
+import 'package:weatherapp/widgets/daily_weather_display.dart';
 
 class MainDisplay extends StatefulWidget {
   //Initialise a WeatherData object to retreive data from the OpenWeatherMaps API
@@ -83,9 +85,28 @@ class _MainDisplayState extends State<MainDisplay> {
           ),
         ),
         Center(
+          /*
+          ListView.builder(
+            itemCount: WeatherData.dailyWeatherCards.length,
+            itemBuilder: (context, index){
+              //Daily cards
+              return DailyWeatherCard(
+                weekday: WeatherData.dailyWeatherCards[index].weekday,
+                weatherCondition: WeatherData.dailyWeatherCards[index].conditionWeather,
+                maxTemp: WeatherData.dailyWeatherCards[index].maxTemp,
+                minTemp: WeatherData.dailyWeatherCards[index].minTemp
+              );
+            },
+          )
+          */
+          
           //Daily Weather for Week
-          child: 
-          Text('Daily'),
+          child: DailyWeatherCard(
+            weekday: "Monday",
+            weatherCondition: 302,
+            maxTemp: 33,
+            minTemp: 22,
+          ),
         ),
       ]
     );

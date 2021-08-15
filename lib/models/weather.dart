@@ -5,7 +5,10 @@ import 'package:http/http.dart';
 import 'package:weatherapp/constants.dart';
 import 'package:weatherapp/credentials.dart';
 import 'package:weatherapp/utils/location.dart';
-import 'package:weatherapp/utils/dailyweather.dart';
+import 'package:weatherapp/models/dailyweather.dart';
+import 'package:weatherapp/utils/daynight.dart';
+
+import 'package:weatherapp/utils/network.dart';
 
 //Setting icon and background image
 class WeatherDisplayData{
@@ -17,6 +20,7 @@ class WeatherDisplayData{
 
 //Request weather from the API on lat/long
 class WeatherData{
+  //Geolocatoin
   WeatherData({required this.locationData});
   LocationHelper locationData;
 
@@ -45,11 +49,14 @@ class WeatherData{
   String appLang = "en";
   String appUnits = "metric";
 
+  //API URL
+  String openWeather = "https://api.openweathermap.org/data/2.5/onecall";
+
   Future<void> getCurrentTemperature() async{
     Response response = await get(
       //One call API. Returns more data than the standard data
       Uri.parse(
-        'https://api.openweathermap.org/data/2.5/onecall?lat=${locationData.latitude}&lon=${locationData.longitude}&exclude=&appid=${apiKey}&units=${appUnits}&lang=${appLang}'
+        '$openWeather?lat=${locationData.latitude}&lon=${locationData.longitude}&exclude=&appid=${apiKey}&units=${appUnits}&lang=${appLang}'
         )
     );
 
@@ -73,14 +80,14 @@ class WeatherData{
     }
   }
 
-  //Daily weather values - Check against inspiration later since changed function a lot
+  //Daily weather values - Issue with checking daily value
   void getDailyWeather(dynamic response){
     List<dynamic> jsonDays = response['daily'];
     jsonDays.forEach((day){
       dailyWeatherCards.add(
         DailyWeather(
-          weekday: kWeekdays.toString()[
-              DateTime.fromMillisecondsSinceEpoch(day['dt'] * 1000).weekday],
+          weekday: kWeekdays[
+              DateTime.fromMillisecondsSinceEpoch(day['dt'] * 1000).weekday]?? '',
           conditionWeather: day['weather'][0]['id'],
           maxTemp: day['temp']['max'].round(),
           minTemp: day['temp']['min'].round(),
@@ -90,60 +97,21 @@ class WeatherData{
     print('Daily MaxTemp: $maxTemp - MinTemp: $minTemp');
   }
 
+
   //Icon changing based on weather
   WeatherDisplayData getWeatherDisplayData(){
-    var dayNight;
     var clearIcon;
     var currentTime = new DateTime.now();
 
     //Set background to day or night version
     if(currentTime.hour >= 19){
-      dayNight = AssetImage('assets/backgroundnight.png');
       clearIcon = kMoonIcon;
     } else{
-      dayNight = AssetImage('assets/backgroundday.png');
       clearIcon = kSunIcon;
     }
 
-    /*
-    switch(currentCon){
-      case 'Thunderstorm':
-        return WeatherDisplayData(
-        weatherIcon: kLightningIcon,
-        weatherImage: dayNight,
-      );
-      case 'Drizzle':
-        return WeatherDisplayData(
-        weatherIcon: kDrizzleIcon,
-        weatherImage: dayNight,
-      );
-      case 'Rain':
-        return WeatherDisplayData(
-        weatherIcon: kRainIcon,
-        weatherImage: dayNight,
-      );
-      case 'Snow':
-        return WeatherDisplayData(
-        weatherIcon: kSnowIcon,
-        weatherImage: dayNight,
-      );
-      case 'Clear':
-        return WeatherDisplayData(
-        weatherIcon: clearIcon,
-        weatherImage: dayNight,
-      );
-      case 'Clouds':
-        return WeatherDisplayData(
-        weatherIcon: kCloudIcon,
-        weatherImage: dayNight,
-      );
-      default: 
-        return WeatherDisplayData(
-        weatherIcon: kErrorIcon,
-        weatherImage: dayNight,
-      );
-    }
-    */
+    var dayNight = DayNight().backgroundChanger();
+    //var clearIcon = DayNight().iconChanger();
      
     //Check conditions from API to decide icon
     if(currentCon >= 200 && currentCon < 300){
@@ -187,6 +155,8 @@ class WeatherData{
         weatherImage: dayNight,
       );
     }
+
+    
     
   }
 }

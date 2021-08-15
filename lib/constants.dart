@@ -63,33 +63,20 @@ Icon kErrorIcon = Icon(
   color: Colors.white,
 );
 
-const kWeekdays = {
-  'Monday',
-  'Tuesday',
-  'Wednesday',
-  'Thursday',
-  'Friday',
-  'Saturday',
-  'Sunday',
-};
+//App colours
+const Color kCardLight = Color(0XFF60a964);
+const Color kBackLight = Color(0XFF2e5130);
+const Color kCardDark = Color(0XFF2f2031);
+const Color kBackDark = Color(0XFF533957);
+const Color kTextDark = Color(0XFF121212);
+const Color kCardColor = Color(0XFF3B2F47); //To be retired later
 
-const kMonths = {
-  'January',
-  'February',
-  'March',
-  'April',
-  'May',
-  'June',
-  'July',
-  'August',
-  'September',
-  'October',
-  'November',
-  'December',
-};
+//Font styles
+const TextStyle kMaxTempStyle = TextStyle(fontSize: 15, color: Colors.white);
+const TextStyle kMinTempStyle = TextStyle(fontSize: 15, color: Colors.white54);
+const TextStyle kWeekdayStyle = TextStyle(fontSize: 13, color: Colors.white);
 
-/*
-//Used to contain ints, needed?
+//Map of Days and Months
 const kWeekdays = {
   1: 'Monday',
   2: 'Tuesday',
@@ -97,7 +84,7 @@ const kWeekdays = {
   4: 'Thursday',
   5: 'Friday',
   6: 'Saturday',
-  7: 'Sunday',
+  7: 'Sunday'
 };
 
 const kMonths = {
@@ -114,4 +101,3 @@ const kMonths = {
   11: 'November',
   12: 'December',
 };
-*/
