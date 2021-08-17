@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:weatherapp/screens/main_display.dart';
 import 'package:weatherapp/utils/location.dart';
 import 'package:weatherapp/models/weather.dart';
-import 'package:weatherapp/utils/geocoding.dart';
+import 'package:weatherapp/models/geocoding.dart';
 
 
 class LoadingScreen extends StatefulWidget{
+  static const String id = 'loading_screen';
   @override 
   _LoadingScreenState createState() => _LoadingScreenState();
 }

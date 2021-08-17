@@ -5,6 +5,7 @@ import 'package:weatherapp/credentials.dart';
 
 String key = apiKey;
 
+//ToDo: Currently unused due to it needing required, and the URL in the method that evokes it
 class NetworkService{
   final String url;
   NetworkService(String s, {required this.url});

@@ -1,8 +1,9 @@
 import 'dart:convert';
 import 'package:http/http.dart';
 
-import 'package:weatherapp/utils/location.dart';
+import 'package:weatherapp/constants.dart';
 import 'package:weatherapp/credentials.dart';
+import 'package:weatherapp/utils/location.dart';
 
 //Request geocoding from the API on lat/long
 class GeoData{
@@ -12,11 +13,10 @@ class GeoData{
   String currentCity = "";
   String currentCountry = "";
 
-  //To-Do: Retrieve the locationData once in a parent class, then give 
-  //value to geocoding.dart and weather.dart. Maybe make generic method for API
+  //ToDo: Retrieve the locationData once in a parent class, then give value to geocoding.dart and weather.dart. Maybe make generic method for API
   Future<void> getGeolocationData() async{
     Response response = await get(
-      Uri.parse('http://api.openweathermap.org/geo/1.0/reverse?lat=${locationData.latitude}&lon=${locationData.longitude}&limit=1&appid=${apiKey}')
+      Uri.parse('$reverseGeocoding?lat=${locationData.latitude}&lon=${locationData.longitude}&limit=1&appid=$apiKey')
     );
 
     //Return geocode values

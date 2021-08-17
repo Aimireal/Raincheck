@@ -8,8 +8,6 @@ import 'package:weatherapp/utils/location.dart';
 import 'package:weatherapp/models/dailyweather.dart';
 import 'package:weatherapp/utils/daynight.dart';
 
-import 'package:weatherapp/utils/network.dart';
-
 //Setting icon and background image
 class WeatherDisplayData{
   Icon weatherIcon;
@@ -20,13 +18,11 @@ class WeatherDisplayData{
 
 //Request weather from the API on lat/long
 class WeatherData{
-  //Geolocatoin
   WeatherData({required this.locationData});
   LocationHelper locationData;
 
   //List for daily/hourly cards
   List<DailyWeather> dailyWeatherCards = [];
-  //List<HourlyWeather> hourlyWeathercards = [];
 
   //Current weather values
   double currentTemp = 0.0;
@@ -49,14 +45,11 @@ class WeatherData{
   String appLang = "en";
   String appUnits = "metric";
 
-  //API URL
-  String openWeather = "https://api.openweathermap.org/data/2.5/onecall";
-
   Future<void> getCurrentTemperature() async{
     Response response = await get(
       //One call API. Returns more data than the standard data
       Uri.parse(
-        '$openWeather?lat=${locationData.latitude}&lon=${locationData.longitude}&exclude=&appid=${apiKey}&units=${appUnits}&lang=${appLang}'
+        '$openWeatherURL?lat=${locationData.latitude}&lon=${locationData.longitude}&exclude=&appid=$apiKey&units=$appUnits&lang=$appLang'
         )
     );
 
@@ -97,7 +90,6 @@ class WeatherData{
     print('Daily MaxTemp: $maxTemp - MinTemp: $minTemp');
   }
 
-
   //Icon changing based on weather
   WeatherDisplayData getWeatherDisplayData(){
     var clearIcon;
@@ -111,7 +103,6 @@ class WeatherData{
     }
 
     var dayNight = DayNight().backgroundChanger();
-    //var clearIcon = DayNight().iconChanger();
      
     //Check conditions from API to decide icon
     if(currentCon >= 200 && currentCon < 300){
@@ -155,8 +146,5 @@ class WeatherData{
         weatherImage: dayNight,
       );
     }
-
-    
-    
   }
 }

@@ -6,6 +6,7 @@ import 'package:weatherapp/constants.dart';
 
 class DayNight{
   /*
+  ToDo: Implement change below
   So a better way to do this would be to run on refresh the "isDay" code
   That way we can get the boolean on refresh, and send to these methods 
   instead of rerunning that line of code, will change later since feel it 

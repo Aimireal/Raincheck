@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-//Basic Background (Unused as of 6/8/21)
-const kGradient = LinearGradient(
-  begin: Alignment.topCenter,
-  end: Alignment.bottomCenter,
-  colors: [Colors.deepPurple, Colors.blue],
-);
+//API URLs
+String openWeatherURL = "https://api.openweathermap.org/data/2.5/onecall";
+String reverseGeocoding = "http://api.openweathermap.org/geo/1.0/reverse";
 
 //App Icons
 Icon kLightningIcon = Icon(
