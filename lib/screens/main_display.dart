@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 
 import 'package:weatherapp/utils/daynight.dart';
 import 'package:weatherapp/utils/string_formatter.dart';
 import 'package:weatherapp/utils/location.dart';
+import 'package:weatherapp/utils/network.dart';
 import 'package:weatherapp/models/geocoding.dart';
 import 'package:weatherapp/models/weather.dart';
 import 'package:weatherapp/models/dailyweather.dart';
@@ -61,13 +63,10 @@ class _MainDisplayState extends State<MainDisplay> {
           weatherData.getWeatherDisplayData();
       backgroundImage = weatherDisplayData.weatherImage;
       weatherDisplayIcon = weatherDisplayData.weatherIcon;
-
-      //Daily forecast
-      //weatherData.getDailyWeather(weatherData);
     });
   }
 
-  void refreshInfo() async{
+  Future<void> refreshInfo() async{
     //Refresh Location, Update Geodata and Refresh Weather
     newLocation = LocationHelper();
     await newLocation.getCurrentLocation();
@@ -77,8 +76,6 @@ class _MainDisplayState extends State<MainDisplay> {
 
     newWeather = WeatherData(locationData: newLocation);
     await newWeather.getCurrentTemperature();
-
-    newWeather.getDailyWeather(newWeather);
   }
 
   @override
@@ -157,7 +154,7 @@ class _MainDisplayState extends State<MainDisplay> {
     floatingActionButton: FloatingActionButton(
       onPressed: () async {
         //Refresh Location, Update Geodata and Refresh Weather
-        refreshInfo();
+        await refreshInfo();
 
         print("Updated UI");
 

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:weatherapp/models/weather.dart';
 import 'package:weatherapp/utils/daynight.dart';
 import 'package:weatherapp/constants.dart';
 

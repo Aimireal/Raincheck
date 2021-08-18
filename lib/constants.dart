@@ -5,6 +5,10 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 String openWeatherURL = "https://api.openweathermap.org/data/2.5/onecall";
 String reverseGeocoding = "http://api.openweathermap.org/geo/1.0/reverse";
 
+//Future settings switch
+String appLang = "en";
+String appUnits = "metric";
+
 //App Icons
 Icon kLightningIcon = Icon(
   FontAwesomeIcons.bolt,

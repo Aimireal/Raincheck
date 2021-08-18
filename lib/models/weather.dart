@@ -4,9 +4,11 @@ import 'package:http/http.dart';
 
 import 'package:weatherapp/constants.dart';
 import 'package:weatherapp/credentials.dart';
-import 'package:weatherapp/utils/location.dart';
 import 'package:weatherapp/models/dailyweather.dart';
+import 'package:weatherapp/utils/location.dart';
 import 'package:weatherapp/utils/daynight.dart';
+import 'package:weatherapp/utils/network.dart';
+import 'package:weatherapp/widgets/daily_weather_display.dart';
 
 //Setting icon and background image
 class WeatherDisplayData{
@@ -40,18 +42,13 @@ class WeatherData{
   //Daily weather values
   dynamic maxTemp;
   dynamic minTemp;
-
-  //Future settings switch
-  String appLang = "en";
-  String appUnits = "metric";
+  dynamic weatherResponse;
 
   Future<void> getCurrentTemperature() async{
-    Response response = await get(
-      //One call API. Returns more data than the standard data
-      Uri.parse(
-        '$openWeatherURL?lat=${locationData.latitude}&lon=${locationData.longitude}&exclude=&appid=$apiKey&units=$appUnits&lang=$appLang'
-        )
-    );
+    Response response = await
+      NetworkService().getCurrentTemperature(locationData);
+
+    weatherResponse = response;
 
     //Return the weather values
     if(response.statusCode == 200){
@@ -74,26 +71,21 @@ class WeatherData{
   }
 
   //Generating a DailyWeather instance for daily weather cards
-  void getDailyWeather(dynamic weatherData) {
-    print("weather: getDailyWeather");
-    if(weatherData['daily'] != null){
-      print("weather:not null");
-      List<dynamic> jsonDays = weatherData['daily'];
-      jsonDays.forEach((day) {
-        dailyWeatherCards.add(
-          DailyWeather(
-            weekday: kWeekdays[
-                DateTime.fromMillisecondsSinceEpoch(day['dt'] * 1000).weekday]?? '',
-            //conditionWeather: day['weather'][0]['id'],
-            maxTemp:
-                day['temp']['max'].round(),
-            minTemp: day['temp']['min'].round(),
-          ),
-        );
-      });
-    }else{
-      print("weather: Daily null");
-    }
+  //ToDo: I wonder if it doesn't work since I use weatherData, instead of the response object
+  void getDailyWeather(weatherResponse) {
+    List<dynamic> jsonDays = weatherResponse['daily'];
+    jsonDays.forEach((day) {
+      dailyWeatherCards.add(
+        DailyWeather(
+          weekday: kWeekdays[
+              DateTime.fromMillisecondsSinceEpoch(day['dt'] * 1000).weekday]?? '',
+          //conditionWeather: day['weather'][0]['id'],
+          maxTemp:
+              day['temp']['max'].round(),
+          minTemp: day['temp']['min'].round(),
+        ),
+      );
+    });
   }
 
   //Icon changing based on weather
