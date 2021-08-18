@@ -13,12 +13,12 @@ class WeatherDisplayData{
   Icon weatherIcon;
   AssetImage weatherImage;
 
-  WeatherDisplayData({required this.weatherIcon, required this.weatherImage});
+  WeatherDisplayData({ required this.weatherIcon,  required this.weatherImage});
 }
 
 //Request weather from the API on lat/long
 class WeatherData{
-  WeatherData({required this.locationData});
+  WeatherData({ required this.locationData});
   LocationHelper locationData;
 
   //List for daily/hourly cards
@@ -73,21 +73,27 @@ class WeatherData{
     }
   }
 
-  //Daily weather values - Issue with checking daily value
-  void getDailyWeather(dynamic response){
-    List<dynamic> jsonDays = response['daily'];
-    jsonDays.forEach((day){
-      dailyWeatherCards.add(
-        DailyWeather(
-          weekday: kWeekdays[
-              DateTime.fromMillisecondsSinceEpoch(day['dt'] * 1000).weekday]?? '',
-          conditionWeather: day['weather'][0]['id'],
-          maxTemp: day['temp']['max'].round(),
-          minTemp: day['temp']['min'].round(),
-        ),
-      );
-    });
-    print('Daily MaxTemp: $maxTemp - MinTemp: $minTemp');
+  //Generating a DailyWeather instance for daily weather cards
+  void getDailyWeather(dynamic weatherData) {
+    print("weather: getDailyWeather");
+    if(weatherData['daily'] != null){
+      print("weather:not null");
+      List<dynamic> jsonDays = weatherData['daily'];
+      jsonDays.forEach((day) {
+        dailyWeatherCards.add(
+          DailyWeather(
+            weekday: kWeekdays[
+                DateTime.fromMillisecondsSinceEpoch(day['dt'] * 1000).weekday]?? '',
+            //conditionWeather: day['weather'][0]['id'],
+            maxTemp:
+                day['temp']['max'].round(),
+            minTemp: day['temp']['min'].round(),
+          ),
+        );
+      });
+    }else{
+      print("weather: Daily null");
+    }
   }
 
   //Icon changing based on weather

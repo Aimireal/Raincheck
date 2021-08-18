@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-
+// ignore: camel_case_types
 class Weather_Display extends StatelessWidget {
   Weather_Display({
     Key? key,

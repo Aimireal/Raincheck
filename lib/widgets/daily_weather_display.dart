@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:weatherapp/models/weather.dart';
 import 'package:weatherapp/utils/daynight.dart';
 import 'package:weatherapp/constants.dart';
 
 class DailyWeatherCard extends StatelessWidget{
   final String weekday;
-  final int weatherCondition;
+  //final int weatherCondition;
   final dynamic maxTemp;
   final dynamic minTemp;
 
-  var backColor = DayNight().cardBackground();
-  var foreColor = DayNight().cardForeground();
+  final backColor = DayNight().cardBackground();
+  final foreColor = DayNight().cardForeground();
 
   DailyWeatherCard(
     {
       required this.weekday,
-      required this.weatherCondition,
+      //required this.weatherCondition,
       required this.maxTemp,
       required this.minTemp,
     }

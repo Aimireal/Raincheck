@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import 'package:weatherapp/screens/loading_screen.dart';
-import 'package:weatherapp/screens/main_display.dart';
 import 'package:weatherapp/utils/daynight.dart';
 
 //Runnable instance
@@ -23,7 +21,7 @@ class MyApp extends StatelessWidget{
       initialRoute: LoadingScreen.id,
       routes: {
         LoadingScreen.id: (context) => LoadingScreen(),
-        MainDisplay.id: (context) => MainDisplay(),
+        //MainDisplay.id: (context) => MainDisplay(),
       },
     );
   }

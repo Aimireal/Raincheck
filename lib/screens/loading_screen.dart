@@ -22,11 +22,7 @@ class _LoadingScreenState extends State<LoadingScreen>{
 
     var latitude = locationData.latitude;
     var longitude = locationData.longitude;
-
-    if(latitude == null || longitude == null){
-      //Error handle no location value
-      print('Error: Latitude = $latitude | Longitude = $longitude');
-    }
+    print('Latitude = $latitude | Longitude = $longitude');
   }
 
   void getWeatherData() async{
@@ -38,10 +34,7 @@ class _LoadingScreenState extends State<LoadingScreen>{
 
     var currentTemp = weatherData.currentTemp;
     var currentCon = weatherData.currentCon;
-
-    if(weatherData.currentTemp == null || weatherData.currentCon == null){
-      print('Error: Temp: $currentTemp | Con: $currentCon');
-    }
+    print('Temp: $currentTemp | Con: $currentCon');
 
     //GetLocation
     GeoData geoData = GeoData(locationData: locationData);
@@ -49,10 +42,7 @@ class _LoadingScreenState extends State<LoadingScreen>{
 
     var currentCity = geoData.currentCity;
     var currentCountry = geoData.currentCountry;
-
-    if(currentCity == null || currentCountry == null){
-      print('Error: City: $currentCity | Country: $currentCountry');
-    }
+    print('City: $currentCity | Country: $currentCountry');
 
     //Open main display
     Navigator.pushReplacement(

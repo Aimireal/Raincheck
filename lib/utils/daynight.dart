@@ -1,7 +1,4 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
-
 import 'package:weatherapp/constants.dart';
 
 class DayNight{

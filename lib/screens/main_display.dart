@@ -1,8 +1,4 @@
-//  @dart=2.9
-import 'dart:html';
-
 import 'package:flutter/material.dart';
-import 'package:location/location.dart';
 
 import 'package:weatherapp/utils/daynight.dart';
 import 'package:weatherapp/utils/string_formatter.dart';
@@ -18,7 +14,7 @@ class MainDisplay extends StatefulWidget {
   final WeatherData weatherData;
   final GeoData geoData;
   
-  MainDisplay({this.weatherData, this.geoData});
+  MainDisplay({required this.weatherData, required this.geoData});
 
   @override
   _MainDisplayState createState() => _MainDisplayState();
@@ -26,27 +22,6 @@ class MainDisplay extends StatefulWidget {
 
 class _MainDisplayState extends State<MainDisplay> {
   //Taking values from the WeatherData object for display
-  int temperature;
-  int tempMin;
-  int tempMax;
-  int humidity;
-  int windSpeed;
-
-  //Added temp values for strings
-  String weatherDesc = "";
-  String locationName = "";
-  String countryName = "";
-
-  Icon weatherDisplayIcon;
-  AssetImage backgroundImage;
-
-  //Variables for refresh function
-  LocationHelper newLocation;
-  WeatherData newWeather;
-  GeoData newGeo;
-
-  /*
-  ToDo: This is the original values. Changed to try use dart 2.9 to disable null safety
   late int temperature;
   late int tempMin;
   late int tempMax;
@@ -60,9 +35,15 @@ class _MainDisplayState extends State<MainDisplay> {
 
   late Icon weatherDisplayIcon;
   late AssetImage backgroundImage;
-  */
+
+  //Variables for refresh function
+  late LocationHelper newLocation;
+  late WeatherData newWeather;
+  late GeoData newGeo;
 
   void updateDisplayInfo(WeatherData weatherData, GeoData geoData) {
+    weatherData.dailyWeatherCards.clear();
+
     setState(() {
       temperature = weatherData.currentTemp.round();
       tempMin = weatherData.currentTempMin.round();
@@ -80,7 +61,24 @@ class _MainDisplayState extends State<MainDisplay> {
           weatherData.getWeatherDisplayData();
       backgroundImage = weatherDisplayData.weatherImage;
       weatherDisplayIcon = weatherDisplayData.weatherIcon;
+
+      //Daily forecast
+      //weatherData.getDailyWeather(weatherData);
     });
+  }
+
+  void refreshInfo() async{
+    //Refresh Location, Update Geodata and Refresh Weather
+    newLocation = LocationHelper();
+    await newLocation.getCurrentLocation();
+
+    newGeo = GeoData(locationData: newLocation);
+    await newGeo.getGeolocationData();
+
+    newWeather = WeatherData(locationData: newLocation);
+    await newWeather.getCurrentTemperature();
+
+    newWeather.getDailyWeather(newWeather);
   }
 
   @override
@@ -120,65 +118,57 @@ class _MainDisplayState extends State<MainDisplay> {
               color: DayNight().cardBackground(),
               child: Center(
                 child: new Container(
+                  /*
                   child: DailyWeatherCard(
                     weekday: "Monday",
-                    weatherCondition: 302,
                     maxTemp: 33,
                     minTemp: 22,
-                    /*
-                    ToDo: Figure why index error is happening. Seems to not recognise JSONReading on "Daily"
-                    ListView.builder(
-                      itemCount: WeatherData.dailyWeatherCards.length,
-                      itemBuilder: (context, index){
-                        //Daily cards
-                        return DailyWeatherCard(
-                          weekday: WeatherData.dailyWeatherCards[index].weekday,
-                          weatherCondition: WeatherData.dailyWeatherCards[index].conditionWeather,
-                          maxTemp: WeatherData.dailyWeatherCards[index].maxTemp,
-                          minTemp: WeatherData.dailyWeatherCards[index].minTemp
-                        );
-                      },
-                    )*/
                   ),
-                ),
+                  */
+                  child: FutureBuilder(
+                    builder: (
+                      BuildContext context, 
+                      AsyncSnapshot<dynamic> snapshot
+                    ){  
+                      return Container(
+                        child: ListView.builder(
+                          shrinkWrap: true, 
+                          physics: ClampingScrollPhysics(),
+                          itemCount: widget.weatherData.dailyWeatherCards.length,
+                          itemBuilder: (context, index){
+                            print("$context");
+                            return DailyWeatherCard(
+                              weekday: widget.weatherData.dailyWeatherCards[index].weekday,
+                              //conditionWeather: newWeather.dailyWeatherCards[index].conditionWeather,
+                              maxTemp: widget.weatherData.dailyWeatherCards[index].maxTemp,
+                              minTemp: widget.weatherData.dailyWeatherCards[index].minTemp,
+                            );
+                          },
+                        ),
+                      );
+                    },
+                  ),
               ),
-            )
-          ],
-        ),
+            ),
+          )
+        ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          //Refresh Location
-          newLocation = LocationHelper();
-          await newLocation.getCurrentLocation();
+    ),
+    floatingActionButton: FloatingActionButton(
+      onPressed: () async {
+        //Refresh Location, Update Geodata and Refresh Weather
+        refreshInfo();
 
-          var lat = newLocation.latitude;
-          var lon = newLocation.longitude;
-          print("Lat = $lat, Lon = $lon");
+        print("Updated UI");
 
-          //Update GeoData
-          newGeo = GeoData(locationData: newLocation);
-          await newGeo.getGeolocationData();
-
-          var country = newGeo.currentCountry;
-          var city = newGeo.currentCity;
-          print("Country = $country, City = $city");
-
-          //Refresh Weather
-          newWeather = WeatherData(locationData: newLocation);
-          await newWeather.getCurrentTemperature();
-
-          var newTemp = newWeather.currentTemp;
-          print("New Temp: $newTemp");
-
-          //Update UI with new values
-          updateDisplayInfo(newWeather, newGeo);
-          print("Updated Widget");
-        },
-        child: const Icon(Icons.refresh),
-        backgroundColor: Colors.grey,
-        ),
-      );
+        //Update UI with new values
+        updateDisplayInfo(newWeather, newGeo);
+        print("Updated Widget");
+      },
+      child: const Icon(Icons.refresh),
+      backgroundColor: Colors.grey,
+      ),
+    );
   }
 
 }
