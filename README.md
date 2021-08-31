@@ -9,7 +9,7 @@ Utilises the OpenWeatherMaps API for reporting the weather and the FontAwesome i
 - Works across web/android seamlessly
 - Sleek, minimalistic design elements
 
-![alt_text](https://github.com/Aimireal/FlutterWeather/blob/master/assets/Screenshot/UI.PNG)
+![alt_text](https://github.com/Aimireal/FlutterWeather/blob/master/assets/UI.PNG)
 *(Note: GPS was set manually, hence the differences in reported locations in the screenshot)*
 
 ## To Run:
